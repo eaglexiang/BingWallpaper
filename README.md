@@ -2,6 +2,13 @@
 ## Download
 [下载地址](http://eaglexiang.xyz/codes/cs/bingwallpaper/) 
 ## Logs 
+### 1.9.1 
+* 修复已知Bug 
+* 检查更新不再造成卡顿 
+* 以后同时只能运行一个实例 
+* 按钮逻辑优化 
+* 优化加载速度 
+
 ### 1.9 
 * 增加必应首页按钮 
 * 增加更新检查功能 
