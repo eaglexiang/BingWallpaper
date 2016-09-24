@@ -2,6 +2,11 @@
 ## Download
 [下载地址](http://eaglexiang.xyz/codes/cs/bingwallpaper/) 
 ## Logs 
+### 1.10 
+* 现在可以复制图片信息 
+* 去掉菜单中的全屏按钮 
+* 自动更新只会更新到稳定版 
+
 ### 1.9.1 
 * 修复已知Bug 
 * 检查更新不再造成卡顿 
