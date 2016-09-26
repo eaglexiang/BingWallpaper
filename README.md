@@ -1,7 +1,10 @@
-# BingWallpaper
+﻿# BingWallpaper
 ## Download
 [下载地址](http://eaglexiang.xyz/codes/cs/bingwallpaper/) 
 ## Logs 
+### 1.10.1 
+* 优化UI 
+
 ### 1.10 
 * 现在可以复制图片信息 
 * 去掉菜单中的全屏按钮 
