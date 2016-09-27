@@ -1,7 +1,11 @@
 ﻿# BingWallpaper
 ## Download
-[下载地址](http://eaglexiang.xyz/codes/cs/bingwallpaper/) 
+[联系方式](http://eaglexiang.xyz/about/) 
+[下载地址](http://bybz.tech/) 
 ## Logs 
+### 1.10.2 
+* 修复Bug 
+
 ### 1.10.1 
 * 优化UI 
 
