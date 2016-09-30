@@ -1,6 +1,7 @@
-﻿# BingWallpaper
-## Download
+# BingWallpaper
+## Communication 
 [联系方式](http://eaglexiang.xyz/about/) 
+## Download
 [下载地址](http://bybz.tech/) 
 ## Logs 
 ### 1.10.2 
