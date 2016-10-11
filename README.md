@@ -4,6 +4,10 @@
 ## Download
 [下载地址](http://bybz.tech/) 
 ## Logs 
+### 1.11 
+* 优化UI 
+* 优化图片抓取 
+
 ### 1.10.2 
 * 修复Bug 
 
