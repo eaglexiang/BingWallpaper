@@ -4,6 +4,11 @@
 ## Download
 [下载地址](http://bybz.tech/) 
 ## Logs 
+### 1.11.3 
+* 修复Bug
+* 优化UI
+* 迁移到bybz.tech 
+
 ### 1.11.2
 * 修复Bug 
 * 优化UI 
