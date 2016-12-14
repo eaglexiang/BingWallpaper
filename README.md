@@ -1,6 +1,6 @@
 # BingWallpaper
 ## Open Source
-[开源协议](https://github.com/eaglexiang/BingWallpaper/blob/master/LICENSE)
+使用[Apache License](https://github.com/eaglexiang/BingWallpaper/blob/master/LICENSE)开源
 ## Communication 
 [联系方式](http://eaglexiang.xyz/about/) 
 ## Download
