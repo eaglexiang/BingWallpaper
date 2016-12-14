@@ -1,4 +1,6 @@
 # BingWallpaper
+## Open Source
+[开源协议](https://github.com/eaglexiang/BingWallpaper/blob/master/LICENSE)
 ## Communication 
 [联系方式](http://eaglexiang.xyz/about/) 
 ## Download
