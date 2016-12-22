@@ -10,6 +10,8 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Threading;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace 必应壁纸
 {
@@ -53,7 +55,17 @@ namespace 必应壁纸
         //static public bool Downloaded = false;//图片是否已经下载
         static public string UrlOfImage = null;//图片的URL
         public static Bitmap Picture;//下载的壁纸图片
-        public static string Log { get; set; }//Log信息
+        private static string Log_String = "";
+        public static string Information;//图片相关信息，如图片名、拍摄地
+        public static string Log(string logs)
+        {
+            Log_String += logs;
+            return Log_String;
+        }
+        public static string Log()
+        {
+            return Log_String;
+        }
 
         /// <summary>
         /// 根据壁纸的URL下载图片到内存
@@ -68,57 +80,88 @@ namespace 必应壁纸
             return Picture;
         }
 
-        public static int Getted = 0;
+        public static uint Getted = 0;
         /// <summary>
         /// 获取图片的URL
         /// </summary>
         public static void GetURLofImage()
         {
-            while (true)
+            try
             {
-                string HTML_c;
-                if (Getted == 0)
+                while (true)
                 {
-                    HTML_c = new WebClient().DownloadString(@"http://cn.bing.com/");
-                }
-                else
-                {
-                    HTML_c = HTML;
-                }
-                if (HTML_c != null && UrlOfImage == null)
-                {
-                    string[] Result = GetNewURL(HTML_c);
-                    foreach (string Url_Tmp in Result)
+                    string HTML_c;
+                    if (Getted == 0)//HTTP请求
                     {
-                        if (Url_Tmp == null)
+                        Log("发起请求\n");
+                        WebRequest wrq = WebRequest.Create("http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=zh-CN");
+                        WebResponse wrp = wrq.GetResponse();
+                        Stream stream = wrp.GetResponseStream();
+                        StreamReader sr = new StreamReader(stream, Encoding.GetEncoding("utf-8"));
+                        string String_JSON = sr.ReadToEnd();
+                        JObject Obj_JSON = JObject.Parse(String_JSON);
+                        string String_Images = Obj_JSON["images"][0].ToString();
+                        String_Images = String_Images.Remove(String_Images.Length - 16, 14);//删除末端无法识别的hs
+                        Dictionary<string, string> Dic_Images = JsonConvert.DeserializeObject<Dictionary<string, string>>(String_Images);
+                        UrlOfImage = @"http://s.cn.bing.net/"+Dic_Images["url"];
+                        Information = Dic_Images["copyright"];
+                        HTML_c = "";
+                        Getted = (Getted + 1) % 3;
+                    }
+                    else
+                    {
+                        if (Getted == 1)//下载静态网页
                         {
+                            Log("静态抓取\n");
+                            HTML_c = new WebClient().DownloadString(@"http://cn.bing.com/");
+                            Getted = (Getted + 1) % 3;
+                        }
+                        else//读取动态网页
+                        {
+                            Log("动态抓取\n");
+                            HTML_c = HTML;
+                            Getted = (Getted + 1) % 3;
+                        }
+                        if (HTML_c != null && UrlOfImage == null)//处理HTML代码
+                        {
+                            string[] Result = GetNewURL(HTML_c);
+                            foreach (string Url_Tmp in Result)
+                            {
+                                if (Url_Tmp == null)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Uri uri = new Uri(Url_Tmp);
+                                    if (System.IO.Path.GetExtension(uri.AbsolutePath) == ".jpg" || System.IO.Path.GetExtension(uri.AbsolutePath) == ".JPG")
+                                    {
+                                        UrlOfImage = Url_Tmp;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (UrlOfImage != null && Picture == null)
+                    {
+                        Log("成功解析到壁纸\n");
+                        Log("开始下载\n");
+                        Download();
+                        if (Picture != null)
+                        {
+                            Log("下载成功\n");
                             break;
                         }
                         else
                         {
-                            Uri uri = new Uri(Url_Tmp);
-                            if (System.IO.Path.GetExtension(uri.AbsolutePath) == ".jpg" || System.IO.Path.GetExtension(uri.AbsolutePath) == ".JPG")
-                            {
-                                Log += "成功解析到壁纸\n";
-                                UrlOfImage = Url_Tmp;
-                            }
+                            Log("下载失败\n");
                         }
                     }
                 }
-                if (UrlOfImage != null && Picture == null)
-                {
-                    Log += "开始下载\n";
-                    Download();
-                    if (Picture != null)
-                    {
-                        Log += "下载成功\n";
-                        break;
-                    }
-                    else
-                    {
-                        Log += "下载失败\n";
-                    }
-                }
+            }
+            catch(Exception ex)
+            {
+                Log(ex.Message + '\n');
             }
         }
         static private Bitmap GetBMP()

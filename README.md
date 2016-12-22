@@ -4,8 +4,12 @@
 ## Communication 
 [联系方式](http://eaglexiang.xyz/about/) 
 ## Download
-[下载地址](http://bybz.tech/) 
+[下载可执行程序](http://bybz.tech/) 
 ## Logs 
+### 1.12
+* 提高抓取速度与稳定性
+* 修复Bug
+
 ### 1.11.7
 * 修复检查更新
 * 修复about窗体

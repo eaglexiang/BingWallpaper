@@ -36,7 +36,7 @@ namespace 必应壁纸
             label_BG.Size = new Size(Width - 6, Height - 6);
             label_BG.Location = new Point(3, 3);
             Shell = @"explorer.exe";
-            Param = @"http://bybz.tech/jump/fromabout.html";
+            Param = @"http://bybz.tech/html/jump/fromabout.html";
         }
 
         public About(string info, string shell, string parm, string label)

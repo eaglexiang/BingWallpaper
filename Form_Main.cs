@@ -21,10 +21,9 @@ namespace 必应壁纸
     {
         Size EST;//全屏时暂存窗体尺寸
         bool IsFullScreen = false;//窗体是否处于全屏
-        string Information;//图片相关信息，如图片名、拍摄地
         Thread FindURL;//分析HTML代码的线程
         Thread FindLatest;//检查新版本的线程
-        string myVersion = "1.11.7";//关于菜单显示的版本号
+        string myVersion = "1.12";//关于菜单显示的版本号
         string BetaVersion = "";//检查到的最新测试版本号
         string ReleaseVersion = "";//检查到的最新稳定版本号
         int tried = 0;//已尝试刷新次数
@@ -36,7 +35,7 @@ namespace 必应壁纸
             InitializeComponent();
         }
 
-        private void Thread_Load()
+        private void HTML2URLAndInfo()
         {
             try
             {
@@ -67,9 +66,9 @@ namespace 必应壁纸
                             string info = sh_cp.GetAttribute("title");
                             if (info != null)
                             {
-                                Information = info;
+                                MyFiles.Information = info;
                                 图片信息ToolStripMenuItem.Enabled = true;//使查看图片信息按钮可用
-                                MyFiles.Log += "抓取到图片信息\n" + Information + '\n';
+                                MyFiles.Log("抓取到图片信息\n" + MyFiles.Information + '\n');
                             }
                         }
                     }
@@ -96,9 +95,9 @@ namespace 必应壁纸
                                             {
                                                 if (!图片信息ToolStripMenuItem.Enabled)
                                                 {
-                                                    Information = title + '\n' + location;
+                                                    MyFiles.Information = title + '\n' + location;
                                                     图片信息ToolStripMenuItem.Enabled = true;//使查看图片信息按钮可用
-                                                    MyFiles.Log += "抓取到图片信息\n" + Information + '\n';
+                                                    MyFiles.Log("抓取到图片信息\n" + MyFiles.Information + '\n');
                                                 }
                                             }
                                         }
@@ -114,7 +113,7 @@ namespace 必应壁纸
                 {
                     if (pictureBox1.Image == null)
                     {
-                        MyFiles.Log += "抓取到图片\n";
+                        MyFiles.Log("抓取到图片\n");
                         pictureBox1.Image = MyFiles.Picture;
                         EnableLabels();
                         OneKeyWork();
@@ -122,20 +121,24 @@ namespace 必应壁纸
                 }
 
                 //停止timer_refresh
-                if (pictureBox1.Image != null && Information != null && Information != "")
+                if (pictureBox1.Image != null && MyFiles.Information != null && MyFiles.Information != "")
                 {
                     if (timer_Refresh.Enabled)
                     {
                         timer_Refresh.Stop();
-                        MyFiles.Log += "停止抓取\n";
+                        MyFiles.Log("停止抓取\n");
                     }
                 }
 
                 //检查新版本
                 if (BetaVersion != "" && ReleaseVersion != "")
                 {
-                    MyFiles.Log = MyFiles.Log +
-                        "LocalVersion: " + myVersion + "\n";
+                    //去掉可能存在的换行符
+                    if (BetaVersion[BetaVersion.Length - 1] == '\n')
+                        BetaVersion = BetaVersion.Substring(0, BetaVersion.Length - 1);
+                    if (ReleaseVersion[ReleaseVersion.Length - 1] == '\n')
+                        ReleaseVersion = ReleaseVersion.Substring(0, ReleaseVersion.Length - 1);
+                    MyFiles.Log("LocalVersion: " + myVersion + "\n");
 
                     if (myVersion != BetaVersion && myVersion != ReleaseVersion)
                     {
@@ -167,7 +170,7 @@ namespace 必应壁纸
                     }
                     else
                     {
-                        MyFiles.Log += "不存在更新版本\n";
+                        MyFiles.Log("不存在更新版本\n");
                         检查更新ToolStripMenuItem.Text = "暂无更新";
                     }
                     BetaVersion = "";
@@ -176,7 +179,7 @@ namespace 必应壁纸
             }
             catch (Exception ex)
             {
-                MyFiles.Log += ex.Message + '\n';
+                MyFiles.Log(ex.Message + '\n');
             }
         }
 
@@ -227,7 +230,7 @@ namespace 必应壁纸
                         }
                         else
                         {
-                            MyFiles.Log += "收藏失败\n";
+                            MyFiles.Log("收藏失败\n");
                         }
                     }
                 }
@@ -236,11 +239,11 @@ namespace 必应壁纸
             {
                 if (ex.HResult == -2147467259)
                 {
-                    MyFiles.Log += "该收藏目录需要管理员权限\n";
+                    MyFiles.Log("该收藏目录需要管理员权限\n");
                 }
                 else
                 {
-                    MyFiles.Log += ex.Message + '\n';
+                    MyFiles.Log(ex.Message + '\n');
                 }
             }
         }
@@ -256,11 +259,11 @@ namespace 必应壁纸
             {
                 if (ex.HResult == -2147467259)
                 {
-                    MyFiles.Log += "当前的收藏目录需要更高权限，建议您更改收藏目录。如果一定要在此目录，请将本程序以管理员方式启动。\n";
+                    MyFiles.Log("当前的收藏目录需要更高权限，建议您更改收藏目录。如果一定要在此目录，请将本程序以管理员方式启动。\n");
                 }
                 else
                 {
-                    MyFiles.Log += ex.Message + '\n';
+                    MyFiles.Log(ex.Message + '\n');
                 }
             }
         }
@@ -289,7 +292,7 @@ namespace 必应壁纸
                 }
                 catch (Exception ex)
                 {
-                    MyFiles.Log += ex.Message + '\n';
+                    MyFiles.Log(ex.Message + '\n');
                 }
             }
         }
@@ -298,20 +301,20 @@ namespace 必应壁纸
         {
             try
             {
-                MyFiles.Log = "欢迎使用\n";
+                MyFiles.Log("欢迎使用\n");
                 this.KeyPreview = true;
                 //MyFiles.Init();
                 label_Path.Text = MyFiles.Path_Save;
                 FindURL = new Thread(MyFiles.GetURLofImage);
                 FindURL.IsBackground = true;
-                MyFiles.Log += "开始搜索图片\n";
+                MyFiles.Log("开始搜索图片\n");
                 FindURL.Start();
-                MyFiles.Log += "开始状态检查\n";
+                MyFiles.Log("开始状态检查\n");
                 timer_Load.Start();
             }
             catch (Exception ex)
             {
-                MyFiles.Log += ex.Message + '\n';
+                MyFiles.Log(ex.Message + '\n');
             }
         }
 
@@ -362,7 +365,7 @@ namespace 必应壁纸
                     }
                     catch (Exception ex)
                     {
-                        MyFiles.Log += ex.Message + '\n';
+                        MyFiles.Log(ex.Message + '\n');
                     }
                     finally
                     {
@@ -464,7 +467,7 @@ namespace 必应壁纸
             }
             catch (Exception ex)
             {
-                MyFiles.Log += ex.Message + '\n';
+                MyFiles.Log(ex.Message + '\n');
             }
         }
 
@@ -554,24 +557,24 @@ namespace 必应壁纸
             About.Show("必应壁纸。\n" +
                 "版本 " + myVersion + "。\n" +
                 "© 2016 Eagle。\n" +
-                "保留所有权利。");
+                "使用Apache-2.0协议开源。");
             Form_Show();
         }
 
         private void timer_Load_Tick(object sender, EventArgs e)
         {
-            Thread_Load();
+            HTML2URLAndInfo();
             //更新Log
-            if (richTextBox_Logs.Text != MyFiles.Log)
+            if (richTextBox_Logs.Text != MyFiles.Log())
             {
-                richTextBox_Logs.Text = MyFiles.Log;
+                richTextBox_Logs.Text = MyFiles.Log();
             }
         }
 
         private void 图片信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form_Hide();
-            CopyInfo.Show(Information);
+            CopyInfo.Show(MyFiles.Information);
             Form_Show();
         }
 
@@ -591,22 +594,20 @@ namespace 必应壁纸
                     BetaVersion = NewVersion;
                 else
                     BetaVersion = "error";
-                MyFiles.Log = MyFiles.Log +
-                        "BetaVersion: " + BetaVersion + "\n";
+                MyFiles.Log("BetaVersion: " + BetaVersion + "\n");
 
                 NewVersion = wc.DownloadString("http://bybz.tech/html/version/release");
                 if (NewVersion != null)
                     ReleaseVersion = NewVersion;
                 else
                     ReleaseVersion = "error";
-                MyFiles.Log = MyFiles.Log +
-                        "ReleaseVersion: " + ReleaseVersion + "\n";
+                MyFiles.Log("ReleaseVersion: " + ReleaseVersion + "\n");
             }
             catch
             {
                 BetaVersion = "error";
                 ReleaseVersion = "error";
-                MyFiles.Log = MyFiles.Log += "检查更新时出现异常";
+                MyFiles.Log("检查更新时出现异常");
             }
         }
 
@@ -619,11 +620,11 @@ namespace 必应壁纸
                 FindLatest = new Thread(FindUpdate);
                 FindLatest.IsBackground = true;
                 FindLatest.Start();
-                MyFiles.Log += "开始检查更新\n";
+                MyFiles.Log("开始检查更新\n");
             }
             catch (Exception ex)
             {
-                MyFiles.Log += ex.Message + '\n';
+                MyFiles.Log(ex.Message + '\n');
             }
         }
 
@@ -631,11 +632,12 @@ namespace 必应壁纸
         {
             try
             {
-                System.Diagnostics.Process.Start("explorer.exe", @"http://cn.bing.com/");
+                About.Show("壁纸图片来自必应中国，\n请依照微软中国相关协议使用，\n如若违反，\n本工具作者不承担任何责任。", "explorer", @"http://cn.bing.com/", "必应中国");
+                //System.Diagnostics.Process.Start("explorer.exe", @"http://cn.bing.com/");
             }
             catch (Exception ex)
             {
-                MyFiles.Log += ex.Message + '\n';
+                MyFiles.Log(ex.Message + '\n');
             }
         }
 
@@ -649,7 +651,7 @@ namespace 必应壁纸
                 Form_Show();
             }
             webBrowser1.Refresh();
-            MyFiles.Log += "抓取失败，重新抓取\n";
+            MyFiles.Log("抓取失败，重新抓取\n");
         }
 
         bool RichIsFront = true;
