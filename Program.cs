@@ -29,7 +29,8 @@ namespace 必应壁纸
                             OneKey = true;
                             fm.Opacity = 0;
                             fm.ShowInTaskbar = false;
-                            fm.Enabled = false;
+                            fm.Size = new System.Drawing.Size(1, 1);
+                            fm.Opacity = 0;
                             fm.ShowDialog();
                         }
                         else

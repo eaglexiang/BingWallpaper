@@ -1,0 +1,17 @@
+D:\Users\Eagle\Documents\Visual Studio 2013\Projects\C Sharp 网络爬虫\C Sharp 网络爬虫\bin\Debug\C Sharp 网络爬虫.exe.config
+D:\Users\Eagle\Documents\Visual Studio 2013\Projects\C Sharp 网络爬虫\C Sharp 网络爬虫\bin\Debug\C Sharp 网络爬虫.exe
+D:\Users\Eagle\Documents\Visual Studio 2013\Projects\C Sharp 网络爬虫\C Sharp 网络爬虫\bin\Debug\C Sharp 网络爬虫.pdb
+D:\Users\Eagle\Documents\Visual Studio 2013\Projects\C Sharp 网络爬虫\C Sharp 网络爬虫\obj\Debug\C Sharp 网络爬虫.csprojResolveAssemblyReference.cache
+D:\Users\Eagle\Documents\Visual Studio 2013\Projects\C Sharp 网络爬虫\C Sharp 网络爬虫\obj\Debug\C_Sharp_网络爬虫.Form1.resources
+D:\Users\Eagle\Documents\Visual Studio 2013\Projects\C Sharp 网络爬虫\C Sharp 网络爬虫\obj\Debug\C_Sharp_网络爬虫.Properties.Resources.resources
+D:\Users\Eagle\Documents\Visual Studio 2013\Projects\C Sharp 网络爬虫\C Sharp 网络爬虫\obj\Debug\C Sharp 网络爬虫.csproj.GenerateResource.Cache
+D:\Users\Eagle\Documents\Visual Studio 2013\Projects\C Sharp 网络爬虫\C Sharp 网络爬虫\obj\Debug\C Sharp 网络爬虫.exe
+D:\Users\Eagle\Documents\Visual Studio 2013\Projects\C Sharp 网络爬虫\C Sharp 网络爬虫\obj\Debug\C Sharp 网络爬虫.pdb
+D:\Code TMP\C Sharp 网络爬虫\C Sharp 网络爬虫\bin\Debug\C Sharp 网络爬虫.exe.config
+D:\Code TMP\C Sharp 网络爬虫\C Sharp 网络爬虫\obj\Debug\C Sharp 网络爬虫.exe
+D:\Code TMP\C Sharp 网络爬虫\C Sharp 网络爬虫\obj\Debug\C Sharp 网络爬虫.pdb
+D:\Code TMP\C Sharp 网络爬虫\C Sharp 网络爬虫\bin\Debug\C Sharp 网络爬虫.exe
+D:\Code TMP\C Sharp 网络爬虫\C Sharp 网络爬虫\bin\Debug\C Sharp 网络爬虫.pdb
+D:\Code TMP\C Sharp 网络爬虫\C Sharp 网络爬虫\obj\Debug\C_Sharp_网络爬虫.Form1.resources
+D:\Code TMP\C Sharp 网络爬虫\C Sharp 网络爬虫\obj\Debug\C_Sharp_网络爬虫.Properties.Resources.resources
+D:\Code TMP\C Sharp 网络爬虫\C Sharp 网络爬虫\obj\Debug\C Sharp 网络爬虫.csproj.GenerateResource.Cache
